@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Agba Anthony — Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+  /* -------------------------
+     VARIABLES & RESET
+     ------------------------- */
+  :root{
+    --bg: #ffffff;
+    --card: #f6f7fb;
+    --muted: #7b8190;
+    --text: #0b1320;
+    --accent: #0ea5ff; /* blue neon */
+    --accent-2: #ff4d6d; /* cinematic red */
+    --glass: rgba(255,255,255,0.06);
+    --maxw: 1100px;
+  }
+  [data-theme="dark"]{
+    --bg: #06070a;
+    --card: #0f1620;
+    --muted: #9aa4b2;
+    --text: #e6eef8;
+    --accent: #3aa6ff;
+    --accent-2: #ff6b88;
+    --glass: rgba(255,255,255,0.04);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }
+
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* -------------------------
+   NAVBAR
+   ------------------------- */
+  header.site-header{
+    position:fixed;left:0;right:0;top:0;
+    z-index:120;
+    background:linear-gradient(to bottom, rgba(0,0,0,0.06), transparent);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid rgba(0,0,0,0.04);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:var(--maxw);margin:0 auto;padding:14px 20px}
+  .brand{font-family:'Oswald',sans-serif;letter-spacing:2px;font-weight:600}
+  .nav-links{display:flex;gap:18px;align-items:center}
+  .nav-links a{color:var(--text);text-decoration:none;font-weight:600;font-size:14px;opacity:0.95}
+  .nav-links a:hover{opacity:1}
+  .cta-follow{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:700}
+  /* hamburger */
+  .hamburger{display:none;width:44px;height:40px;align-items:center;justify-content:center;cursor:pointer}
+  .hamburger span{display:block;height:3px;width:22px;background:var(--text);border-radius:3px;transition:all .3s;margin:3px 0}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* mobile menu */
+  .mobile-nav{position:fixed;right:-320px;top:0;width:320px;height:100vh;background:var(--card);box-shadow:-20px 0 40px rgba(0,0,0,0.15);padding:60px 20px;transition:right .35s;z-index:119}
+  .mobile-nav.open{right:0}
+  .mobile-nav a{display:block;margin:12px 0;color:var(--text);font-weight:600;text-decoration:none}
+
+/* -------------------------
+   HERO (video background)
+   ------------------------- */
+  .hero{
+    position:relative;
+    min-height:85vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+  }
+  /* sample video fills hero */
+  .bg-video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(1.05);transform:scale(1.02)
+  }
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(2,6,23,0.35), rgba(2,6,23,0.45));mix-blend-mode:multiply}
+  .hero-content{position:relative;z-index:3;color:#fff;padding:80px 20px;max-width:1000px}
+  .hero h1{font-family:'Oswald';font-size:38px;letter-spacing:1px;margin-bottom:12px;text-shadow:0 10px 30px rgba(0,0,0,0.6)}
+  .hero p{color:rgba(255,255,255,0.9);font-size:17px;margin-bottom:20px}
+  .hero .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 8px 30px rgba(14,165,255,0.12)}
+  .btn.ghost{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.08)}
+
+  /* subtle floating decal */
+  .decal{
+    position:absolute;right:6%;
+    bottom:8%;
+    width:220px;height:140px;border-radius:14px;overflow:hidden;
+    box-shadow:0 20px 50px rgba(0,0,0,0.45);
+    display:none;
+  }
+  .decal img{width:100%;height:100%;object-fit:cover}
+
+/* -------------------------
+   SECTIONS
+   ------------------------- */
+  section{padding:80px 0}
+  .section-title{font-size:26px;font-family:'Oswald';margin-bottom:18px}
+  .lead{color:var(--muted);margin-bottom:28px;max-width:700px}
+
+/* cards grid */
+  .grid{display:grid;gap:18px}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.06);transition:transform .35s ease, box-shadow .35s}
+  .card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(2,6,23,0.12)}
+  .card img{width:100%;height:180px;object-fit:cover;border-radius:10px;margin-bottom:12px}
+  .card h4{margin-bottom:8px}
+  .badge{display:inline-block;padding:6px 8px;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;font-weight:700;font-size:12px}
+
+/* skills bars */
+  .skill{margin-bottom:12px}
+  .skill .label{display:flex;justify-content:space-between;font-weight:600;margin-bottom:6px}
+  .bar{height:10px;background:rgba(0,0,0,0.06);border-radius:8px;overflow:hidden}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width 1.2s cubic-bezier(.2,.9,.3,1)}
+
+/* chess card */
+  .chess-card{display:flex;gap:16px;align-items:center}
+  .chess-card img{width:120px;height:120px;object-fit:cover;border-radius:10px}
+
+/* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 320px;gap:30px;align-items:start}
+
+/* CONTACT */
+  .contact-form{max-width:640px}
+  .field{display:flex;flex-direction:column;margin-bottom:12px}
+  .field input,.field textarea{padding:12px;border-radius:8px;border:1px solid rgba(0,0,0,0.07);background:transparent;color:var(--text)}
+  .field textarea{min-height:120px;resize:vertical}
+
+/* FOOTER */
+  footer.site-footer{padding:30px 0;background:transparent;text-align:center;color:var(--muted)}
+
+/* -------------------------
+   REVEAL ANIMATIONS (scroll)
+   ------------------------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.show{opacity:1;transform:none}
+
+/* -------------------------
+   RESPONSIVE
+   ------------------------- */
+  @media (max-width:1000px){ .grid.cols-3{grid-template-columns:repeat(2,1fr)} .about-grid{grid-template-columns:1fr} .decal{display:none} }
+  @media (max-width:700px){ .nav-links{display:none} .hamburger{display:flex} .container{padding:0 14px} .grid.cols-3{grid-template-columns:1fr} .hero h1{font-size:28px} .hero{min-height:70vh} .mobile-only{display:block} }
+  </style>
+</head>
+<body data-theme="">
+
+  <!-- HEADER -->
+  <header class="site-header" aria-label="Top navigation">
+    <div class="nav-inner container">
+      <div class="brand brand-left">
+        <span style="color:var(--accent);margin-right:8px">▣</span><span class="brand-name">AGBA ANTHONY</span>
+      </div>
+
+      <nav class="nav-links" role="navigation" aria-label="Main">
+        <a href="#coding">Coding</a>
+        <a href="#editing">Editing</a>
+        <a href="#chess">Chess</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact" class="cta-follow">Contact</a>
+      </nav>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <button id="themeToggle" aria-label="Toggle theme" title="Toggle dark/light" style="background:transparent;border:0;cursor:pointer;padding:6px">
+          <!-- simple icon -->
+          <svg id="themeIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.4"/>
+          </svg>
+        </button>
+
+        <div class="hamburger" id="hamburger" aria-hidden="true" title="Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- mobile off-canvas -->
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+      <a href="#coding">Coding</a>
+      <a href="#editing">Editing</a>
+      <a href="#chess">Chess</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home" role="banner">
+    <!-- sample video (replace with your file or hosted mp4) -->
+    <video class="bg-video" autoplay muted loop playsinline crossorigin>
+      <source src="./Ryomen.Ae Prob3u.mp4" type="video/mp4" />
+      <!-- fallback image -->
+      <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?q=80&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3&s=eb6f7b5f4e8b9632f1b4b8b67e9e9b49" alt="">
+    </video>
+
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content container">
+      <h1>Hi — I’m <span style="color:var(--accent)">Agba Anthony</span></h1>
+      <p class="lead" style="color:rgba(255,255,255,0.92)">I build clean websites, cinematic edits, and play strategic chess. This is a showcase of my best work — coding, editing and game strategy.</p>
+      <div class="btns">
+        <a class="btn primary" href="#coding">View Projects</a>
+        <a class="btn ghost" href="#editing">Watch Edits</a>
+      </div>
+    </div>
+
+    <!-- sample floating preview -->
+    <div class="decal" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b4f3d9f3a1d6d6c3b2f2adc9d3f2ea7" alt="">
+    </div>
+  </section>
+
+  <!-- CODING PROJECTS -->
+  <main>
+  <section id="coding" class="container section">
+    <h3 class="section-title">Coding Projects</h3>
+    <p class="lead">Selected front-end projects built with HTML & CSS (and some JavaScript). Click to view the repo or demo.</p>
+
+    <div class="grid cols-3">
+      <article class="card reveal" tabindex="0">
+        <img src="./images/netflix.jpg" alt="Project - Netflix Clone">
+        <h4>Netflix Clone (HTML/CSS)</h4>
+        <p class="muted">Responsive landing page recreation — perfect for practicing grids & carousels.</p>
+        <div style="margin-top:12px"><span class="badge">HTML/CSS</span></div>
+      </article>
+
+      <article class="card reveal" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=2f3f4a5f6b7c8d9e" alt="Project - Calculator">
+        <h4>Calculator UI</h4>
+        <p class="muted">Clean calculator UI using CSS grid and accessible controls.</p>
+        <div style="margin-top:12px"><span class="badge">HTML/CSS</span></div>
+      </article>
+
+      <article class="card reveal" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=7d8f9b0a1b2c3d4e" alt="Project - Weather App">
+        <h4>Weather Checker (Demo)</h4>
+        <p class="muted">Styled weather UI — API-ready layout for dynamic data.</p>
+        <div style="margin-top:12px"><span class="badge">HTML/CSS</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- VIDEO EDITING -->
+  <section id="editing" class="container section">
+    <h3 class="section-title">Video Editing</h3>
+    <p class="lead">Cinematic trailers, AMVs and short scene edits. Exported in high quality for socials.</p>
+
+    <div class="grid cols-3">
+      <article class="card reveal" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1517602302552-471fe67acf66?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3c4b5f6a7d8e9f0a" alt="Edit 1">
+        <h4>AMV — Silent Echo</h4>
+        <p class="muted">Emotional character edit with slow builds and climactic drops.</p>
+        <div style="margin-top:12px"><span class="badge">After Effects</span></div>
+      </article>
+
+      <article class="card reveal" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd1234ef567890" alt="Edit 2">
+        <h4>Trailer — The Originals (Fan)</h4>
+        <p class="muted">Epic trailer edit with synced drums and cinematic color grading.</p>
+        <div style="margin-top:12px"><span class="badge">Premiere / Topaz</span></div>
+      </article>
+
+      <article class="card reveal" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=9876abcd4321efgh" alt="Edit 3">
+        <h4>Cinematic Montage</h4>
+        <p class="muted">Fast-paced montage for social platforms with velocity edits.</p>
+        <div style="margin-top:12px"><span class="badge">CapCut / AE</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CHESS -->
+  <section id="chess" class="container section">
+    <h3 class="section-title">Chess Profile</h3>
+    <p class="lead">Strategy-focused play — tactics, openings and positional training.</p>
+
+    <div class="card chess-card reveal">
+      <img src="./images/download.jpg" alt="Chess board">
+      <div>
+        <h4>Rating & Achievements</h4>
+        <p class="muted">Tactics rating: <strong>1800+</strong> · Puzzle speed: <strong>7s avg</strong></p>
+        <p style="margin-top:8px">Lichess / Chess.com: <a href="#" style="color:var(--accent)">View profile</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="container section">
+    <h3 class="section-title">About Me</h3>
+
+    <div class="about-grid">
+      <div>
+        <p class="lead">I’m <strong>Agba Anthony</strong> — a front-end developer, video editor and chess player. I love clean UI, smooth motion and storytelling through edits. I’m focused on improving my craft every day and building projects people enjoy.</p>
+
+        <p style="margin-top:14px">I teach classmates editing, take paid editing jobs, and build small web projects. On the side, I study chess openings and tactics to sharpen strategic thinking.</p>
+      </div>
+
+      <aside class="card">
+        <h4>Quick Facts</h4>
+        <ul style="margin-top:10px;color:var(--muted)">
+          <li>Available for remote editing jobs</li>
+          <li>Fast delivery for socials</li>
+          <li>Learning JavaScript & Node</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="container section">
+    <h3 class="section-title">Skills</h3>
+    <p class="lead">A few tools & skills I use daily.</p>
+
+    <div style="max-width:680px">
+      <div class="skill reveal">
+        <div class="label"><span>HTML & CSS</span><strong>95%</strong></div>
+        <div class="bar"><i data-width="95%"></i></div>
+      </div>
+
+      <div class="skill reveal">
+        <div class="label"><span>Video Editing (AE/CapCut)</span><strong>90%</strong></div>
+        <div class="bar"><i data-width="90%"></i></div>
+      </div>
+
+      <div class="skill reveal">
+        <div class="label"><span>JavaScript (learning)</span><strong>45%</strong></div>
+        <div class="bar"><i data-width="45%"></i></div>
+      </div>
+
+      <div class="skill reveal">
+        <div class="label"><span>Chess Strategy</span><strong>80%</strong></div>
+        <div class="bar"><i data-width="80%"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container section">
+    <h3 class="section-title">Contact</h3>
+    <p class="lead">Want to work together or request an edit? Send a quick message and I’ll reply.</p>
+
+    <div class="contact-form card reveal">
+      <form onsubmit="event.preventDefault(); alert('Message sent to agbaekene10@gmail.com)')">
+        <div class="field"><label>Name</label><input type="text" placeholder="Your name" required></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
+        <div class="field"><label>Message</label><textarea placeholder="Tell me about the job..." required></textarea></div>
+        <button class="btn primary" type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+      <div>© <span id="year"></span> Agba Anthony</div>
+      <div style="color:var(--muted)">Made with ❤️ — HTML & CSS</div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+  // set year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // theme toggle (persist)
+  const root = document.documentElement;
+  const body = document.body;
+  const themeToggle = document.getElementById('themeToggle');
+
+  function setTheme(theme){
+    if(theme === 'dark'){
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('theme','dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.removeItem('theme');
+    }
+  }
+  // load saved
+  if(localStorage.getItem('theme') === 'dark') setTheme('dark');
+
+  themeToggle.addEventListener('click', () => {
+    if(document.documentElement.getAttribute('data-theme') === 'dark') setTheme('light'); else setTheme('dark');
+  });
+
+  // mobile nav
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+
+  // smooth reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('show'); observer.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => observer.observe(el));
+
+  // animate skills bars on view
+  const bars = document.querySelectorAll('.bar > i');
+  const barObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const w = e.target.getAttribute('data-width') || '60%';
+        e.target.style.width = w;
+        barObs.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.25});
+  bars.forEach(b => barObs.observe(b));
+  </script>
+</body>
+</html>
